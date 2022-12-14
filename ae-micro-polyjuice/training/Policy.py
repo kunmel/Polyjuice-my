@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import numpy as np
 import tensorflow as tf
 import os
@@ -63,6 +64,7 @@ def parse_kid(pop_res, idx):
         end_pos = len(pop_res)
     return parse(pop_res[start_pos:end_pos])
 
+# 对每个kid进行测试，每个kid返回两个值，tps和abort rate
 def samples_eval(command, sample_count, load_per_sample):
     dict_res = {}
     pos = 0
@@ -72,6 +74,7 @@ def samples_eval(command, sample_count, load_per_sample):
             sys.stdout.flush()
             run_results = run(' '.join(command), die_after=180)
             dict_res[pos] = parse(run_results[1])
+            print(dict_res[pos])
             # pop the command tail which is --policy parameter
             command.pop()
             pos = pos + 1
@@ -89,6 +92,7 @@ def samples_eval(command, sample_count, load_per_sample):
                     pos = pos + 1
                     break
                 dict_res[pos] = kid_res
+                print(dict_res[pos])
                 pos = pos + 1
     return dict_res
 
