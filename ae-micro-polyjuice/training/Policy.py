@@ -74,7 +74,8 @@ def samples_eval(command, sample_count, load_per_sample):
             command.append('--policy ./training/kids/kid_{}.txt'.format(pos))
             sys.stdout.flush()
             run_results = run('./training/kids/kid_{}.txt'.format(pos),' '.join(command), die_after=180)
-            dict_res[pos] = parse(run_results[1])
+            # dict_res[pos] = parse(run_results[1])
+            dict_res[pos] = run_results[1]
             print(dict_res[pos])
             # pop the command tail which is --policy parameter
             command.pop()
@@ -87,12 +88,12 @@ def samples_eval(command, sample_count, load_per_sample):
             # pop the command tail which is --kid-start --kid-end parameter
             command.pop()
             while pos < sample_count:
-                kid_res = parse_kid(run_results[1], pos)
-                if kid_res == -1:
-                    dict_res[pos] = (float(0.0), float(1.0))
-                    pos = pos + 1
-                    break
-                dict_res[pos] = kid_res
+                # kid_res = parse_kid(run_results[1], pos)
+                # if kid_res == -1:
+                #     dict_res[pos] = (float(0.0), float(1.0))
+                #     pos = pos + 1
+                #     break
+                dict_res[pos] = run_results[1]
                 print(dict_res[pos])
                 pos = pos + 1
     return dict_res
@@ -130,13 +131,13 @@ def samples_eval(command, sample_count, load_per_sample):
 #     process.stdout.flush()
 #     return (out_code, process.stdout.read().decode('utf-8'))
 def run(policy, command, die_after = 0):
-    lib = ctypes.cdll.LoadLibrary('./gotest.so')
-    tryPrint = lib.TryPrint
-    tryPrint.argtypes = [ctypes.c_char_p]
-    tryPrint(policy)
-    argTest = lib.Test
-    argTest.restype = int
-    i1 = argTest()
+    lib = ctypes.cdll.LoadLibrary('./goEth.so')
+    sTest = lib.Evaluate
+    sTest.argtypes = [ctypes.c_char_p]
+    sTest.restype = int
+    # argTest = lib.Test
+    # argTest.restype = int
+    i1 = sTest(policy)
     with open("./result.txt") as result:
         line = result.readline()
         strs = line.split(" ")
