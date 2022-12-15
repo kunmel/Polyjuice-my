@@ -73,7 +73,7 @@ def samples_eval(command, sample_count, load_per_sample):
         while pos < sample_count:
             command.append('--policy ./training/kids/kid_{}.txt'.format(pos))
             sys.stdout.flush()
-            run_results = run(' '.join(command), die_after=180)
+            run_results = run('./training/kids/kid_{}.txt'.format(pos),' '.join(command), die_after=180)
             dict_res[pos] = parse(run_results[1])
             print(dict_res[pos])
             # pop the command tail which is --policy parameter
@@ -83,7 +83,7 @@ def samples_eval(command, sample_count, load_per_sample):
         while pos < sample_count:
             command.append('--kid-start {} --kid-end {}'.format(pos, sample_count))
             sys.stdout.flush()
-            run_results = run(' '.join(command), die_after=900)
+            run_results = run('./training/kids/kid_{}.txt'.format(pos),' '.join(command), die_after=900)
             # pop the command tail which is --kid-start --kid-end parameter
             command.pop()
             while pos < sample_count:
@@ -129,10 +129,11 @@ def samples_eval(command, sample_count, load_per_sample):
 
 #     process.stdout.flush()
 #     return (out_code, process.stdout.read().decode('utf-8'))
-def run(command, die_after = 0):
+def run(policy, command, die_after = 0):
     lib = ctypes.cdll.LoadLibrary('./gotest.so')
-
-    lib.TryPrint()  
+    tryPrint = lib.TryPrint
+    tryPrint.argtypes = [ctypes.c_char_p]
+    tryPrint(policy)
     argTest = lib.Test
     argTest.restype = int
     i1 = argTest()
