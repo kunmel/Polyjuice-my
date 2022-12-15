@@ -9,6 +9,7 @@ import signal
 import subprocess
 import numpy as np
 import math
+import ctypes
 from datetime import datetime
 
 # input: txn_type + access_id + contention + op_type
@@ -96,38 +97,51 @@ def samples_eval(command, sample_count, load_per_sample):
                 pos = pos + 1
     return dict_res
 
+# def run(command, die_after = 0):
+#     extra = {} if die_after == 0 else {'preexec_fn': os.setsid}
+#     process = subprocess.Popen(
+#         command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+#         shell=True, **extra)
+
+#     for _ in range(die_after if die_after > 0 else 600):
+#         if process.poll() is not None:
+#             break
+#         time.sleep(1)
+
+#     out_code = -1 if process.poll() is None else process.returncode
+
+#     if out_code < 0:
+#         try:
+#             os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+#         except Exception as e:
+#             print('{}, but continueing'.format(e))
+#         assert die_after != 0, 'Should only time out with die_after set'
+#         print('Failed with return code {}'.format(process.returncode))
+#         process.stdout.flush()
+#         return (out_code, process.stdout.read().decode('utf-8'))
+#         # return None # Timeout
+#     elif out_code > 0:
+#         print('Failed with return code {}'.format(process.returncode))
+#         process.stdout.flush()
+#         return (out_code, process.stdout.read().decode('utf-8'))
+#         # print(process.communicate())
+#         # return None
+
+#     process.stdout.flush()
+#     return (out_code, process.stdout.read().decode('utf-8'))
 def run(command, die_after = 0):
-    extra = {} if die_after == 0 else {'preexec_fn': os.setsid}
-    process = subprocess.Popen(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-        shell=True, **extra)
+    lib = ctypes.cdll.LoadLibrary('./gotest.so')
 
-    for _ in range(die_after if die_after > 0 else 600):
-        if process.poll() is not None:
-            break
-        time.sleep(1)
-
-    out_code = -1 if process.poll() is None else process.returncode
-
-    if out_code < 0:
-        try:
-            os.killpg(os.getpgid(process.pid), signal.SIGTERM)
-        except Exception as e:
-            print('{}, but continueing'.format(e))
-        assert die_after != 0, 'Should only time out with die_after set'
-        print('Failed with return code {}'.format(process.returncode))
-        process.stdout.flush()
-        return (out_code, process.stdout.read().decode('utf-8'))
-        # return None # Timeout
-    elif out_code > 0:
-        print('Failed with return code {}'.format(process.returncode))
-        process.stdout.flush()
-        return (out_code, process.stdout.read().decode('utf-8'))
-        # print(process.communicate())
-        # return None
-
-    process.stdout.flush()
-    return (out_code, process.stdout.read().decode('utf-8'))
+    lib.TryPrint()  
+    argTest = lib.Test
+    argTest.restype = int
+    i1 = argTest()
+    with open("./result.txt") as result:
+        line = result.readline()
+        strs = line.split(" ")
+    f1 = float(strs[0])
+    f2 = float(strs[1])
+    return (i1, (f1, f2))
 
 class Cache(object):
     def __init__(self, cache_lifetime):
