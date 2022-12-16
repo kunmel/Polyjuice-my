@@ -69,6 +69,7 @@ def parse_kid(pop_res, idx):
 def samples_eval(command, sample_count, load_per_sample):
     dict_res = {}
     pos = 0
+    load_per_sample = True
     if load_per_sample:
         while pos < sample_count:
             command.append('--policy ./training/kids/kid_{}.txt'.format(pos))

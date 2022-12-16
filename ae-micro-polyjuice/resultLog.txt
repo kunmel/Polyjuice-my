@@ -1,0 +1,48 @@
+./training/kids/kid_0.txt
+48	32	80	0.5	0.4
+./training/kids/kid_1.txt
+5	45	50	0.0	0.9
+./training/kids/kid_2.txt
+0	39	39	0.0	1.0
+./training/kids/kid_3.txt
+5	41	46	0.0	0.9
+./training/kids/kid_4.txt
+10	45	55	0.1	0.8
+./training/kids/kid_0.txt
+54	58	112	0.5	0.5
+./training/kids/kid_0.txt
+35	29	64	0.3	0.5
+./training/kids/kid_1.txt
+30	51	81	0.3	0.6
+./training/kids/kid_2.txt
+44	39	83	0.4	0.5
+./training/kids/kid_3.txt
+0	58	58	0.0	1.0
+./training/kids/kid_4.txt
+1	39	40	0.0	1.0
+./training/kids/kid_0.txt
+13	60	73	0.1	0.8
+./training/kids/kid_1.txt
+10	49	59	0.1	0.8
+./training/kids/kid_2.txt
+5	56	61	0.0	0.9
+./training/kids/kid_3.txt
+0	44	44	0.0	1.0
+./training/kids/kid_4.txt
+17	46	63	0.2	0.7
+./training/kids/kid_5.txt
+0	53	53	0.0	1.0
+./training/kids/kid_6.txt
+16	49	65	0.2	0.8
+./training/kids/kid_7.txt
+0	61	61	0.0	1.0
+./training/kids/kid_8.txt
+14	57	71	0.1	0.8
+./training/kids/kid_9.txt
+0	52	52	0.0	1.0
+./training/kids/kid_10.txt
+15	59	74	0.1	0.8
+./training/kids/kid_11.txt
+0	64	64	0.0	1.0
+./training/kids/kid_0.txt
+2	29	31	0.0	0.9

@@ -1,6 +1,6 @@
 #!/bin/bash
 runtime=30
-count=1
+count=4
 
 echo "------ Figure 5 Evaluation Start ------"
 
