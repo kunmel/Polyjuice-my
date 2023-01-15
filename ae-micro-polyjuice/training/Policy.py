@@ -144,6 +144,7 @@ def run(policy, command, die_after = 0):
         strs = line.split(" ")
     f1 = float(strs[0])
     f2 = float(strs[1])
+    time.sleep(5)
     return (i1, (f1, f2))
 
 class Cache(object):

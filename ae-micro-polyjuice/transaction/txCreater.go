@@ -1,8 +1,8 @@
 package transaction
 
 import (
-	"Polyjuice-env/config"
-	"Polyjuice-env/utils"
+	"Polyjuice-ethPart/config"
+	"Polyjuice-ethPart/utils"
 	"fmt"
 	"math/rand"
 	"os"

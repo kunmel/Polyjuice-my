@@ -1,6 +1,6 @@
 #!/bin/bash
 runtime=30
-count=4
+count=1
 
 echo "------ Figure 5 Evaluation Start ------"
 
@@ -16,9 +16,9 @@ do
         --workload-type tpcc \
         --bench-opt "-w 45,43,4,4,4" \
         --scale-factor $warehouse \
-        --max-iteration 3 \
+        --max-iteration 20 \
         --eval-time 1.0 \
-        --psize 5 \
+        --psize 8 \
         --random-branch 4 \
         --mutate-rate 0.05 \
         --nworkers $threads \
